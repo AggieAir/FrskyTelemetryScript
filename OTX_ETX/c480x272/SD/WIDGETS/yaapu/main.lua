@@ -1525,11 +1525,51 @@ local function drainTelemetryQueues()
   end
 end
 
+local counterrssi = 1
 local function drawRssi()
   -- RSSI
-  lcd.drawText(323, 0, "RS:", 0+CUSTOM_COLOR)
-  lcd.drawText(323 + 30,0, getRSSI(), 0+CUSTOM_COLOR)
+  local label = string.format("%s",counterrssi)
+  counterrssi = counterrssi + 1
+
+  local sensorConfig
+  customSensors = utils.loadCustomSensors()
+  if customSensors ~= nil then
+    label = "inside"
+--       if customSensors.sensors[1] ~= nil then
+--           sensorConfig = customSensors.sensors[1]
+--     --       if sensorConfig[4] == "" then
+--     --         label = string.format("%s",sensorConfig[1])
+--     --       else
+--     --         label = string.format("%s(%s)",sensorConfig[1],sensorConfig[4])
+--     --       end
+--       end
+  end
+
+  --lcd.drawText(323, 0, "RS:", 0+CUSTOM_COLOR)
+  --lcd.drawText(323 + 30,0, getRSSI(), 0+CUSTOM_COLOR)
+  --lcd.drawText(323 + 30,0, label, 0+CUSTOM_COLOR)
 end
+
+-- local function modDrawRssi()
+--   -- RSSI
+--   local label = "test"
+--   local sensorConfig
+--   if customSensors == nil then
+--     label = "inside"
+-- --       if customSensors.sensors[1] ~= nil then
+-- --           sensorConfig = customSensors.sensors[1]
+-- --     --       if sensorConfig[4] == "" then
+-- --     --         label = string.format("%s",sensorConfig[1])
+-- --     --       else
+-- --     --         label = string.format("%s(%s)",sensorConfig[1],sensorConfig[4])
+-- --     --       end
+-- --       end
+--   end
+--
+--   lcd.drawText(323, 0, "RS:", 0+CUSTOM_COLOR)
+--   --lcd.drawText(323 + 30,0, getRSSI(), 0+CUSTOM_COLOR)
+--   lcd.drawText(323 + 30,0, label, 0+CUSTOM_COLOR)
+-- end
 
 local function drawRssiCRSF()
   lcd.setColor(CUSTOM_COLOR,utils.colors.white)
